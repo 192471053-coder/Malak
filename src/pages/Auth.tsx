@@ -67,8 +67,12 @@ export default function Auth() {
     if (!validateForm()) return;
 
     setIsLoading(true);
-    await signIn(email, password);
+    const { error } = await signIn(email, password);
     setIsLoading(false);
+    
+    if (!error) {
+      // Navigation will be handled by the AuthProvider's onAuthStateChange
+    }
   };
 
   const handleSignUp = async (e: React.FormEvent) => {
@@ -76,8 +80,18 @@ export default function Auth() {
     if (!validateForm(true)) return;
 
     setIsLoading(true);
-    await signUp(email, password, name, role);
+    const { error } = await signUp(email, password, name, role);
     setIsLoading(false);
+    
+    if (!error) {
+      // Reset form
+      setEmail("");
+      setPassword("");
+      setName("");
+      setRole('student');
+      // Switch to sign in tab
+      setActiveTab("signin");
+    }
   };
 
   return (

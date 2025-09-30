@@ -92,20 +92,21 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       password,
       options: {
         data: { name, role },
-        emailRedirectTo: `${window.location.origin}/`,
+        emailRedirectTo: `${window.location.origin}/dashboard`,
       },
     });
 
     if (error) {
       toast({
-        title: "Error",
+        title: "Sign Up Error",
         description: error.message,
         variant: "destructive",
       });
     } else {
       toast({
-        title: "Success",
-        description: "Account created successfully! Please check your email to confirm.",
+        title: "Account Created!",
+        description: "If email confirmation is disabled in Supabase settings, you can sign in now. Otherwise, check your email to confirm your account first.",
+        duration: 6000,
       });
     }
 
